@@ -42,7 +42,14 @@ const TRANSLATIONS = {
     new_template_content: "### 新模版\n\n开始编辑你的内容，使用 {{variable}} 插入变量。",
     copy_suffix: " (副本)",
     add_custom_option: "添加自定义选项",
-    confirm: "确定"
+    confirm: "确定",
+    category_label: "分类 (Category)",
+    category_character: "人物 (Character)",
+    category_item: "物品 (Item)",
+    category_action: "动作 (Action)",
+    category_location: "地点 (Location)",
+    category_visual: "画面 (Visuals)",
+    category_other: "其他 (Other)"
   },
   en: {
     template_management: "Templates",
@@ -82,9 +89,77 @@ const TRANSLATIONS = {
     new_template_content: "### New Template\n\nStart editing content. Use {{variable}} to insert variables.",
     copy_suffix: " (Copy)",
     add_custom_option: "Add Custom Option",
-    confirm: "Confirm"
+    confirm: "Confirm",
+    category_label: "Category",
+    category_character: "Character",
+    category_item: "Item",
+    category_action: "Action",
+    category_location: "Location",
+    category_visual: "Visuals",
+    category_other: "Other"
   }
 };
+
+const CATEGORIES = {
+  character: { id: "character", color: "blue", t_key: "category_character" },
+  item: { id: "item", color: "amber", t_key: "category_item" },
+  action: { id: "action", color: "rose", t_key: "category_action" },
+  location: { id: "location", color: "emerald", t_key: "category_location" },
+  visual: { id: "visual", color: "violet", t_key: "category_visual" },
+  other: { id: "other", color: "slate", t_key: "category_other" }
+};
+
+const CATEGORY_STYLES = {
+  blue: {
+    text: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200",
+    hoverBg: "hover:bg-blue-100", hoverBorder: "hover:border-blue-300",
+    ring: "ring-blue-300", bgActive: "bg-blue-100",
+    badgeText: "text-blue-700", badgeBg: "bg-blue-100",
+    dotBg: "bg-blue-500", btnBg: "bg-blue-600",
+    inputRing: "focus:ring-blue-200", inputBorder: "focus:border-blue-500"
+  },
+  amber: {
+    text: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200",
+    hoverBg: "hover:bg-amber-100", hoverBorder: "hover:border-amber-300",
+    ring: "ring-amber-300", bgActive: "bg-amber-100",
+    badgeText: "text-amber-700", badgeBg: "bg-amber-100",
+    dotBg: "bg-amber-500", btnBg: "bg-amber-600",
+    inputRing: "focus:ring-amber-200", inputBorder: "focus:border-amber-500"
+  },
+  rose: {
+    text: "text-rose-600", bg: "bg-rose-50", border: "border-rose-200",
+    hoverBg: "hover:bg-rose-100", hoverBorder: "hover:border-rose-300",
+    ring: "ring-rose-300", bgActive: "bg-rose-100",
+    badgeText: "text-rose-700", badgeBg: "bg-rose-100",
+    dotBg: "bg-rose-500", btnBg: "bg-rose-600",
+    inputRing: "focus:ring-rose-200", inputBorder: "focus:border-rose-500"
+  },
+  emerald: {
+    text: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-200",
+    hoverBg: "hover:bg-emerald-100", hoverBorder: "hover:border-emerald-300",
+    ring: "ring-emerald-300", bgActive: "bg-emerald-100",
+    badgeText: "text-emerald-700", badgeBg: "bg-emerald-100",
+    dotBg: "bg-emerald-500", btnBg: "bg-emerald-600",
+    inputRing: "focus:ring-emerald-200", inputBorder: "focus:border-emerald-500"
+  },
+  violet: {
+    text: "text-violet-600", bg: "bg-violet-50", border: "border-violet-200",
+    hoverBg: "hover:bg-violet-100", hoverBorder: "hover:border-violet-300",
+    ring: "ring-violet-300", bgActive: "bg-violet-100",
+    badgeText: "text-violet-700", badgeBg: "bg-violet-100",
+    dotBg: "bg-violet-500", btnBg: "bg-violet-600",
+    inputRing: "focus:ring-violet-200", inputBorder: "focus:border-violet-500"
+  },
+  slate: {
+    text: "text-slate-600", bg: "bg-slate-50", border: "border-slate-200",
+    hoverBg: "hover:bg-slate-100", hoverBorder: "hover:border-slate-300",
+    ring: "ring-slate-300", bgActive: "bg-slate-100",
+    badgeText: "text-slate-700", badgeBg: "bg-slate-100",
+    dotBg: "bg-slate-500", btnBg: "bg-slate-600",
+    inputRing: "focus:ring-slate-200", inputBorder: "focus:border-slate-500"
+  }
+};
+
 
 
 // --- 初始数据配置 (Updated with new banks for examples) ---
@@ -92,45 +167,55 @@ const TRANSLATIONS = {
 const INITIAL_BANKS = {
   role: {
     label: "角色身份",
+    category: "character",
     options: ["游戏与动漫概念美术设计大师", "资深影视角色原画师", "赛博朋克风格设计师", "暗黑幻想风格插画师"]
   },
   subject: {
     label: "主体对象",
+    category: "character",
     options: ["女性角色", "男性角色", "机甲少女", "怪物拟人化", "奇幻种族(精灵/恶魔)"]
   },
   layout_focus: {
     label: "构图重心",
+    category: "visual",
     options: ["全身立绘", "半身肖像", "动态战斗姿势", "背影回眸"]
   },
   // Example 1 related
   camera_angle: {
     label: "拍摄角度",
+    category: "visual",
     options: ["脸颊和颈部特写", "目光锁定镜头", "单色下巴托手肖像", "透过模糊的肩带拍摄", "正面特写，面部阴影交错", "斜角拍摄的原始人像", "双手置于锁骨附近的特写", "坐姿半身侧面照", "侧面微距照"]
   },
   lens_param: {
     label: "镜头参数",
+    category: "visual",
     options: ["85mm, f/1.8", "85mm, f/2.0", "50mm, f/2.2", "50mm, f/2.5", "50mm, f/3.2", "35mm, f/4.5", "85mm, f/1.9"]
   },
   lighting: {
     label: "灯光布置",
+    category: "visual",
     options: ["大型顶置柔光箱，轻微侧向反射光", "自然窗光", "伦勃朗光", "赛博朋克霓虹光", "影棚硬光"]
   },
   // Example 2 related
   sticker_core: {
     label: "核心贴纸",
+    category: "item",
     options: ["用户穿着甜美约会装的照片", "复古摇滚乐队T恤穿搭", "日系JK制服穿搭", "极简职场通勤装"]
   },
   sticker_decor: {
     label: "装饰元素",
+    category: "item",
     options: ["手绘爱心、闪光符号", "星星、月亮贴纸", "复古邮票与票据", "赛博故障风Glitch元素"]
   },
   // Example 3 related
   action_pose: {
     label: "互动姿势",
+    category: "action",
     options: ["用手指在男人脑后比划'兔耳朵'", "勾肩搭背比V字手势", "互相指着对方大笑", "背靠背酷炫站姿"]
   },
   background_scene: {
     label: "背景场景",
+    category: "location",
     options: ["俯瞰纽约市的复仇者大厦楼顶", "废弃的工业仓库", "熙熙攘攘的时代广场", "外太空飞船内部"]
   }
 };
@@ -252,6 +337,11 @@ const Variable = ({ id, index, config, currentVal, isOpen, onToggle, onSelect, o
   const [isAdding, setIsAdding] = useState(false);
   const [customVal, setCustomVal] = useState("");
 
+  // Determine styles based on category
+  const categoryId = config?.category || 'other';
+  const colorKey = CATEGORIES[categoryId]?.color || 'slate';
+  const style = CATEGORY_STYLES[colorKey];
+
   // Reset state when popover closes
   useEffect(() => {
     if (!isOpen) {
@@ -275,13 +365,13 @@ const Variable = ({ id, index, config, currentVal, isOpen, onToggle, onSelect, o
       <span 
         onClick={onToggle}
         className={`
-          cursor-pointer px-2 py-0.5 rounded-md border transition-all duration-200 select-none
-          text-indigo-600 font-medium bg-indigo-50 border-indigo-200
-          hover:bg-indigo-100 hover:border-indigo-300
-          ${isOpen ? 'ring-2 ring-indigo-300 bg-indigo-100' : ''}
+          cursor-pointer px-2 py-0.5 rounded-md border transition-all duration-200 select-none font-medium
+          ${style.text} ${style.bg} ${style.border}
+          ${style.hoverBg} ${style.hoverBorder}
+          ${isOpen ? `ring-2 ${style.ring} ${style.bgActive}` : ''}
         `}
       >
-        {currentVal || <span className="text-indigo-300 italic">{t('please_select')}</span>}
+        {currentVal || <span className={`${style.text} opacity-50 italic`}>{t('please_select')}</span>}
       </span>
       
       {/* Popover - 词库选择器 */}
@@ -291,8 +381,11 @@ const Variable = ({ id, index, config, currentVal, isOpen, onToggle, onSelect, o
           className="absolute left-0 top-full mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden flex flex-col text-left"
           style={{ minWidth: '280px' }}
         >
-          <div className="bg-gray-50 px-3 py-2 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-            {t('select')} {config.label} ({index + 1})
+          <div className="bg-gray-50 px-3 py-2 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wider flex justify-between items-center">
+            <span>{t('select')} {config.label} ({index + 1})</span>
+             <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${style.badgeBg} ${style.badgeText} font-medium`}>
+                {t(CATEGORIES[categoryId].t_key)}
+            </span>
           </div>
           <div className="max-h-60 overflow-y-auto p-2 space-y-1">
             {config.options.length > 0 ? config.options.map((opt, idx) => (
@@ -301,7 +394,7 @@ const Variable = ({ id, index, config, currentVal, isOpen, onToggle, onSelect, o
                 onClick={() => onSelect(opt)}
                 className={`w-full text-left px-3 py-2 rounded text-sm transition-colors ${
                   currentVal === opt 
-                    ? 'bg-indigo-50 text-indigo-700 font-medium' 
+                    ? `${style.bgActive} ${style.text} font-medium` 
                     : 'hover:bg-gray-50 text-gray-700'
                 }`}
               >
@@ -324,13 +417,13 @@ const Variable = ({ id, index, config, currentVal, isOpen, onToggle, onSelect, o
                         value={customVal}
                         onChange={(e) => setCustomVal(e.target.value)}
                         placeholder={t('add_option_placeholder')}
-                        className="flex-1 min-w-0 px-2 py-1 text-sm border border-gray-300 rounded focus:border-indigo-500 outline-none"
+                        className={`flex-1 min-w-0 px-2 py-1 text-sm border border-gray-300 rounded ${style.inputBorder} outline-none`}
                         onKeyDown={(e) => e.key === 'Enter' && handleAddSubmit()}
                      />
                      <button 
                         onClick={handleAddSubmit}
                         disabled={!customVal.trim()}
-                        className="px-2 py-1 bg-indigo-600 text-white rounded text-xs font-medium hover:bg-indigo-700 disabled:opacity-50"
+                        className={`px-2 py-1 ${style.btnBg} text-white rounded text-xs font-medium hover:opacity-90 disabled:opacity-50`}
                      >
                         {t('confirm')}
                      </button>
@@ -341,7 +434,7 @@ const Variable = ({ id, index, config, currentVal, isOpen, onToggle, onSelect, o
                         e.stopPropagation();
                         setIsAdding(true);
                     }}
-                    className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded border border-indigo-200 transition-colors font-medium dashed"
+                    className={`w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs ${style.text} ${style.bg} hover:${style.bgActive} rounded border ${style.border} transition-colors font-medium dashed`}
                  >
                     <Plus size={12} /> {t('add_custom_option')}
                  </button>
@@ -354,7 +447,7 @@ const Variable = ({ id, index, config, currentVal, isOpen, onToggle, onSelect, o
 };
 
 // --- Visual Editor Component (New) ---
-const VisualEditor = React.forwardRef(({ value, onChange }, ref) => {
+const VisualEditor = React.forwardRef(({ value, onChange, banks }, ref) => {
   const preRef = useRef(null);
 
   const handleScroll = (e) => {
@@ -368,9 +461,15 @@ const VisualEditor = React.forwardRef(({ value, onChange }, ref) => {
     const parts = text.split(/(\{\{[^{}\n]+\}\})/g);
     return parts.map((part, i) => {
       if (part.startsWith('{{') && part.endsWith('}}')) {
+         const key = part.slice(2, -2).trim();
+         const bank = banks[key];
+         const categoryId = bank?.category || 'other';
+         const colorKey = CATEGORIES[categoryId]?.color || 'slate';
+         const style = CATEGORY_STYLES[colorKey];
+         
          // Style needs to match font metrics exactly, so avoid padding/border that adds width
          return (
-            <span key={i} className="bg-indigo-100 text-indigo-600 font-bold rounded-sm border-b-2 border-indigo-200">
+            <span key={i} className={`${style.bg} ${style.text} font-bold rounded-sm border-b-2 ${style.border}`}>
                {part}
             </span>
          );
@@ -410,6 +509,10 @@ const VisualEditor = React.forwardRef(({ value, onChange }, ref) => {
 const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDeleteBank, t }) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
 
+    const categoryId = bank.category || 'other';
+    const colorKey = CATEGORIES[categoryId]?.color || 'slate';
+    const style = CATEGORY_STYLES[colorKey];
+
     const handleDragStart = (e) => {
         e.dataTransfer.setData('text/plain', `{{${bankKey}}}`);
         e.dataTransfer.effectAllowed = 'copy';
@@ -419,19 +522,19 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
         <div 
             draggable="true"
             onDragStart={handleDragStart}
-            className="bg-gray-50 rounded-lg border border-gray-100 relative group/card hover:border-indigo-200 transition-all overflow-hidden break-inside-avoid mb-3 cursor-grab active:cursor-grabbing"
+            className={`bg-white rounded-lg border ${style.border} relative group/card hover:shadow-sm transition-all overflow-hidden break-inside-avoid mb-3 cursor-grab active:cursor-grabbing`}
         >
             {/* Header / Collapsed View */}
             <div 
-                className="flex justify-between items-start p-3 cursor-pointer hover:bg-gray-100 transition-colors"
+                className={`flex justify-between items-start p-3 cursor-pointer ${style.hoverBg} transition-colors`}
                 onClick={() => setIsCollapsed(!isCollapsed)}
             >
                 <div className="flex items-start gap-2 overflow-hidden flex-1 pr-2">
                     <div className="mt-0.5 flex-shrink-0">
-                        {isCollapsed ? <ChevronDown size={16} className="text-gray-400" /> : <ChevronUp size={16} className="text-gray-400" />}
+                        {isCollapsed ? <ChevronDown size={16} className={style.text} /> : <ChevronUp size={16} className={style.text} />}
                     </div>
                     <div className="flex flex-col min-w-0">
-                        <span className="text-sm font-bold text-gray-800 truncate leading-tight">{bank.label}</span>
+                        <span className={`text-sm font-bold ${style.text} truncate leading-tight`}>{bank.label}</span>
                         <code className="text-[10px] text-gray-400 truncate font-mono">{bankKey}</code>
                     </div>
                 </div>
@@ -439,7 +542,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
                     <button 
                         onClick={(e) => { e.stopPropagation(); onInsert(bankKey); }}
                         title={t('insert')}
-                        className="p-1 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded transition-colors flex items-center gap-1"
+                        className={`p-1 ${style.text} bg-white rounded border border-transparent hover:${style.border} transition-colors flex items-center gap-1`}
                     >
                         <Plus size={14} /> 
                         {!isCollapsed && <span className="text-xs font-medium">{t('insert')}</span>}
@@ -457,7 +560,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
             
             {/* Expanded Content */}
             {!isCollapsed && (
-                <div className="p-3 pt-0 border-t border-gray-100 bg-white/50">
+                <div className={`p-3 pt-0 border-t ${style.border} ${style.bg}`}>
                     <div className="flex flex-col gap-2 mb-3 mt-3">
                         {bank.options.map((opt, idx) => (
                             <div key={idx} className="group flex items-center justify-between gap-1 bg-white border border-gray-200 px-2 py-1 rounded text-xs text-gray-600 shadow-sm overflow-hidden">
@@ -476,7 +579,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
                         <input
                             type="text"
                             placeholder={t('add_option_placeholder')}
-                            className="flex-1 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                            className={`flex-1 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 ${style.inputRing} ${style.inputBorder}`}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     onAddOption(bankKey, e.target.value);
@@ -523,6 +626,7 @@ const App = () => {
   const [isAddingBank, setIsAddingBank] = useState(false);
   const [newBankLabel, setNewBankLabel] = useState("");
   const [newBankKey, setNewBankKey] = useState("");
+  const [newBankCategory, setNewBankCategory] = useState("other");
 
   // Template Management UI State
   const [editingTemplateNameId, setEditingTemplateNameId] = useState(null);
@@ -720,12 +824,14 @@ const App = () => {
       ...prev,
       [safeKey]: {
         label: newBankLabel,
+        category: newBankCategory,
         options: []
       }
     }));
     setDefaults(prev => ({ ...prev, [safeKey]: "" }));
     setNewBankLabel("");
     setNewBankKey("");
+    setNewBankCategory("other");
     setIsAddingBank(false);
   };
 
@@ -1050,18 +1156,37 @@ const App = () => {
                 columnGap: '12px'
             }}
           >
-            {Object.entries(banks).map(([key, bank]) => (
-                <BankGroup 
-                    key={key}
-                    bankKey={key} 
-                    bank={bank} 
-                    onInsert={insertVariableToTemplate}
-                    onDeleteOption={handleDeleteOption}
-                    onAddOption={handleAddOption}
-                    onDeleteBank={handleDeleteBank}
-                    t={t}
-                />
-            ))}
+            {/* Render grouped banks */}
+            {Object.keys(CATEGORIES).map(catId => {
+                 const catBanks = Object.entries(banks).filter(([_, bank]) => (bank.category || 'other') === catId);
+                 if (catBanks.length === 0) return null;
+                 
+                 const catConfig = CATEGORIES[catId];
+                 const style = CATEGORY_STYLES[catConfig.color];
+                 
+                 return (
+                    <div key={catId} className="break-inside-avoid mb-6">
+                        <h3 className={`text-xs font-bold uppercase tracking-wider mb-2 ${style.text} flex items-center gap-1.5`}>
+                           <span className={`w-1.5 h-1.5 rounded-full ${style.dotBg}`}></span>
+                           {t(catConfig.t_key)}
+                        </h3>
+                        <div>
+                            {catBanks.map(([key, bank]) => (
+                                <BankGroup 
+                                    key={key}
+                                    bankKey={key} 
+                                    bank={bank} 
+                                    onInsert={insertVariableToTemplate}
+                                    onDeleteOption={handleDeleteOption}
+                                    onAddOption={handleAddOption}
+                                    onDeleteBank={handleDeleteBank}
+                                    t={t}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                 );
+            })}
           </div>
 
             {isAddingBank ? (
@@ -1088,6 +1213,18 @@ const App = () => {
                                 value={newBankKey}
                                 onChange={e => setNewBankKey(e.target.value)} 
                             />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">{t('category_label')}</label>
+                            <select 
+                                value={newBankCategory}
+                                onChange={e => setNewBankCategory(e.target.value)}
+                                className="w-full text-sm border border-gray-300 rounded px-2 py-1.5 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 outline-none bg-white"
+                            >
+                                {Object.values(CATEGORIES).map(cat => (
+                                    <option key={cat.id} value={cat.id}>{t(cat.t_key)}</option>
+                                ))}
+                            </select>
                         </div>
                         <div className="flex gap-2 pt-1">
                             <button 
@@ -1183,6 +1320,7 @@ const App = () => {
                     ref={textareaRef}
                     value={activeTemplate.content}
                     onChange={(e) => updateActiveTemplateContent(e.target.value)}
+                    banks={banks}
                 />
             ) : (
                 <div className="w-full h-full overflow-y-auto p-8">
