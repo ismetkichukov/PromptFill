@@ -1,6 +1,6 @@
-# Concept Art Prompt Generator (概念美术提示词生成器)
+# Concept Art Prompt Generator
 
-一个专为 AI 绘画（GPT、Nano Banana 等）设计的**结构化提示词生成工具**。通过可视化的"填空"交互方式，帮助用户快速构建、管理和迭代复杂的 Prompt。
+A **structured prompt generation tool** designed specifically for AI painting (GPT, Nano Banana, etc.). Through a visualized "fill-in-the-blank" interaction method, it helps users quickly build, manage, and iterate complex Prompts.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/Version-0.3.1-orange.svg)
@@ -8,183 +8,148 @@
 ![Vite](https://img.shields.io/badge/Vite-5.x-646CFF.svg)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC.svg)
 
-## ✨ 核心特性
+## ✨ Core Features
+* **🧩 Intelligent Vocabulary Management**:
+* **Category Management**: Supports custom vocabulary categories (e.g., characters, actions, scenes, items), distinguished by colors for clearer visuals.
+* **Bidirectional Sync**: When filling in previews on the right, directly add "custom options" which automatically sync back to the left vocabulary without switching back and forth.
+* **Category Editor**: Built-in category manager supporting add, delete, and modify operations for categories and their color configurations (12 preset colors).
+* **Responsive Layout**: Vocabulary list supports waterfall multi-column layout for more efficient space utilization.
+* **📝 Multi-Template System**:
+* Supports creating multiple independent Prompt templates (e.g., "Character Concept Breakdown Chart", "3x3 Photography Grid").
+* **Independent State**: Variable selections (Selection) for each template do not interfere with each other.
+* **Duplicate Cloning**: Supports one-click creation of template duplicates for easy A/B testing or fine-tuning.
+* **🖱️ Visual Interaction**:
+* **WYSIWYG Editing**: In edit mode, variables are highlighted by category colors, supporting direct text editing and structure adjustments.
+* **Drag-and-Drop Insertion**: Directly drag vocabulary cards from the left into the edit area to quickly insert variables.
+* **Preview Mode**: Variables in the template (`{{role}}`) are automatically rendered as clickable dropdown menus.
+* **Independent Instances**: The same variable appearing multiple times in the template (e.g., `{{color}}`) can have different values selected independently (supports `color-0`, `color-1` independent indexing).
+* **💾 Automatic Persistence**:
+* Uses LocalStorage to automatically save all changes (templates, vocabulary, category configurations).
+* Data is not lost after refreshing the page or closing the browser.
+* **🖼️ Image Management**:
+* **Preview Image Display**: Each template supports associated preview images, displayed in the template title area for richer visuals.
+* **Custom Upload**: Supports uploading custom images to replace default preview images (supports jpg, png, webp formats, etc.).
+* **Image Operations**: Hovering over the image shows operation buttons: view large image, upload new image, reset to default image.
+* **Large Image Preview**: Clicking the view large image button allows full-screen browsing in Lightbox mode.
+* **Decorative Background**: Preview images are displayed as blurred backgrounds at the top of the template, creating an immersive atmosphere.
+* **📋 Export and Sharing**:
+* **One-Click Copy**: Copy the final generated clean Prompt text.
+* **Save as Long Image**: Supports exporting the current filled Prompt template as a high-definition image for easy sharing and archiving.
 
-*   **🧩 智能词库管理**：
-    *   **分类管理**：支持自定义词库分类（如人物、动作、画面、物品等），并通过颜色区分，视觉更清晰。
-    *   **双向同步**：在右侧预览填空时，可直接添加"自定义选项"，自动反向同步到左侧词库中，无需来回切换。
-    *   **分类编辑器**：内置分类管理器，支持增删改分类及其颜色配置（12种预设颜色）。
-    *   **响应式布局**：词库列表支持瀑布流式多列布局，空间利用更高效。
-
-*   **📝 多模版系统**：
-    *   支持创建多个独立的 Prompt 模版（如"角色概念分解图"、"3x3 摄影网格"）。
-    *   **独立状态**：每个模版的变量选择（Selection）互不干扰。
-    *   **副本克隆**：支持一键创建模版副本，方便进行 A/B 测试或微调。
-
-*   **🖱️ 可视化交互**：
-    *   **所见即所得编辑**：编辑模式下变量根据分类颜色高亮显示，支持直接文本编辑与结构调整。
-    *   **拖拽插入**：直接将左侧词库卡片拖入编辑区域，即可快速插入变量。
-    *   **预览模式**：模版中的变量（`{{role}}`）会自动渲染为可点击的下拉菜单。
-    *   **独立实例**：同一变量在模版中出现多次（如 `{{color}}`），可分别选择不同的值（支持 `color-0`, `color-1` 独立索引）。
-
-*   **💾 自动持久化**：
-    *   利用 LocalStorage 自动保存所有修改（模版、词库、分类配置）。
-    *   刷新页面或关闭浏览器后，数据不会丢失。
-
-*   **🖼️ 图像管理**：
-    *   **预览图展示**：每个模版支持关联预览图，显示在模版标题区域，视觉效果更丰富。
-    *   **自定义上传**：支持上传自定义图片替换默认预览图（支持 jpg、png、webp 等格式）。
-    *   **图片操作**：悬停在图片上时显示操作按钮：查看大图、上传新图、重置默认图。
-    *   **大图预览**：点击查看大图按钮，可在 Lightbox 模式下全屏浏览图片。
-    *   **装饰背景**：预览图会作为模糊背景显示在模版顶部，营造沉浸式氛围。
-
-*   **📋 导出与分享**：
-    *   **一键复制**：复制最终生成的纯净 Prompt 文本。
-    *   **保存长图**：支持将当前填好内容的 Prompt 模版导出为高清图片，方便分享与存档。
-
-## 🛠️ 技术栈
-
-*   **构建工具**: [Vite](https://vitejs.dev/)
-*   **前端框架**: [React](https://react.dev/)
-*   **样式库**: [Tailwind CSS](https://tailwindcss.com/)
-*   **图标库**: [Lucide React](https://lucide.dev/)
-*   **导出工具**: [html2canvas](https://html2canvas.hertzen.com/)
-
-## 🚀 快速开始
-
-### 前置要求
-确保您的环境已安装 [Node.js](https://nodejs.org/) (推荐 v18+)。
-
-### 安装与运行
-
-1.  **克隆项目**
-    ```bash
-    git clone https://github.com/TanShilongMario/PromptFill.git
-    cd PromptFill
-    ```
-
-2.  **安装依赖**
-    ```bash
-    npm install
-    ```
-
-3.  **启动开发服务器**
-    ```bash
-    npm run dev
-    ```
-    会自动打开浏览器访问 `http://localhost:5173`。
-
-4.  **构建生产版本**
-    ```bash
-    npm run build
-    ```
-
-### 快捷启动脚本
-项目根目录下提供了快捷脚本，双击即可一键启动服务并打开浏览器：
-*   **macOS**: `start.command`
-*   **Windows**: `start.bat`
-
-## 📖 使用指南
-
-### 第一步：管理分类 (Categories)
-*   点击左侧面板顶部的"管理分类"按钮。
-*   在此处您可以添加新分类、修改现有分类名称或颜色（支持12种预设颜色），以及删除不需要的分类。
-*   每个分类都有独特的颜色标识，帮助您在编辑和预览时快速识别不同类型的变量。
-
-### 第二步：创建词库 (Banks)
-*   点击"创建新变量组"添加新的变量词库，并为其指定分类。
-*   在词库卡片中添加具体选项：
-    *   **单个添加**：直接输入选项并按回车。
-    *   **批量添加**：输入多个选项（一行一个），系统会自动分割添加。
-*   词库支持拖拽功能，可直接拖入编辑器快速插入变量。
-
-### 第三步：编辑模版 (Templates)
-*   点击右上角的"编辑模版"按钮进入可视化编辑模式。
-*   **拖拽插入**：按住左侧的词库卡片，拖入编辑器即可插入变量（如 `{{weather}}`）。
-*   **手动输入**：也可以直接在编辑器中输入 `{{变量名}}`，系统会自动识别并渲染。
-*   编辑器中的变量会根据其所属分类显示对应颜色，方便识别和管理。
-*   支持撤销/重做功能，随时调整模版结构。
-
-### 第四步：预览与生成
-*   切换回"预览交互"模式。
-*   点击彩色的变量词，从下拉菜单中选择选项。
-*   **自定义选项**：如果选项不存在，点击下拉菜单底部的"+ 添加自定义选项"，输入并回车即可直接选用并自动保存到词库。
-*   **多实例支持**：同一变量在模版中出现多次时（如 `{{color}}`），每个实例可以独立选择不同的值。
-
-### 第五步：管理模版图片（可选）
-*   **查看预览图**：如果模版关联了预览图，会显示在模版标题右上角，同时作为模糊背景装饰顶部区域。
-*   **上传自定义图片**：
-    1.  将鼠标悬停在预览图上，会显示三个操作按钮。
-    2.  点击中间的"上传图片"按钮（图片图标）。
-    3.  选择本地图片文件（支持 jpg、png、gif、webp 等格式）。
-    4.  图片会自动上传并替换当前预览图。
-*   **查看大图**：点击左侧的"查看大图"按钮（放大图标），可在全屏模式下浏览图片细节。
-*   **重置图片**：点击右侧的"重置默认图片"按钮（撤销图标），可恢复模版的默认预览图。
-
-### 第六步：导出与分享
-*   **复制结果**：点击右上角的"复制结果"按钮，一键复制最终生成的纯净 Prompt 文本，可直接粘贴到 AI 绘画工具中使用。
-*   **保存长图**：点击"保存长图"按钮，将当前填好的 Prompt 模版（包括预览图）导出为高清图片（PNG格式），方便分享、存档或作为参考。
-
-## 💡 使用技巧
-
-1.  **批量创建词库**：在添加选项时，可以一次性输入多行文本，系统会自动按行分割成多个选项。
-2.  **模版副本功能**：在测试不同 Prompt 效果时，使用"创建副本"功能可以保留原模版，方便对比。
-3.  **颜色编码系统**：为不同类型的变量设置不同颜色，可以让复杂的模版结构更加清晰易读。
-4.  **多实例独立选择**：当同一个变量在模版中出现多次时，系统会自动为它们分配独立的索引（如 `color-0`, `color-1`），每个位置可以选择不同的值。
-5.  **自定义预览图**：为模版上传有代表性的参考图片，可以帮助快速识别不同模版的用途，也让导出的长图更具视觉吸引力。
-6.  **图片尺寸建议**：上传的预览图建议尺寸为 300x300px 左右的正方形或竖图，这样能在界面中获得最佳显示效果。
-7.  **本地数据安全**：所有数据（包括上传的图片）都存储在浏览器本地，定期导出备份可以避免数据丢失。
-
-## 📝 更新日志
-
+## 🛠️ Tech Stack
+* **Build Tool**: [Vite](https://vitejs.dev/)
+* **Frontend Framework**: [React](https://react.dev/)
+* **Styling Library**: [Tailwind CSS](https://tailwindcss.com/)
+* **Icon Library**: [Lucide React](https://lucide.dev/)
+* **Export Tool**: [html2canvas](https://html2canvas.hertzen.com/)
+## 🚀 Quick Start
+### Prerequisites
+Ensure your environment has [Node.js](https://nodejs.org/) installed (recommended v18+).
+### Installation and Running
+1. **Clone the Project**
+```bash
+git clone https://github.com/TanShilongMario/PromptFill.git
+cd PromptFill
+```
+2. **Install Dependencies**
+```bash
+npm install
+```
+3. **Start Development Server**
+```bash
+npm run dev
+```
+The browser will automatically open to `http://localhost:5173`.
+4. **Build Production Version**
+```bash
+npm run build
+```
+### Quick Start Script
+A quick start script is provided in the project root directory. Double-click to launch the service and open the browser with one click:
+* **macOS**: `start.command`
+* **Windows**: `start.bat`
+## 📖 Usage Guide
+### Step 1: Manage Categories
+* Click the "Manage Categories" button at the top of the left panel.
+* Here, you can add new categories, modify existing category names or colors (supports 12 preset colors), and delete unnecessary categories.
+* Each category has a unique color identifier to help you quickly identify different types of variables during editing and previewing.
+### Step 2: Create Banks
+* Click "Create New Variable Group" to add a new variable bank and assign it to a category.
+* Add specific options in the bank card:
+* **Single Add**: Directly enter the option and press Enter.
+* **Bulk Add**: Enter multiple options (one per line), and the system will automatically split and add them.
+* Banks support drag-and-drop functionality for quick insertion of variables into the editor.
+### Step 3: Edit Templates
+* Click the "Edit Template" button in the top-right corner to enter visual editing mode.
+* **Drag-and-Drop Insertion**: Hold and drag a bank card from the left into the editor to insert a variable (e.g., `{{weather}}`).
+* **Manual Input**: You can also directly type `{{variable_name}}` in the editor, and the system will automatically recognize and render it.
+* Variables in the editor will display the corresponding category color for easy identification and management.
+* Supports undo/redo functionality for adjusting the template structure at any time.
+### Step 4: Preview and Generate
+* Switch back to "Preview Interaction" mode.
+* Click on a colored variable phrase and select an option from the dropdown menu.
+* **Custom Options**: If the option doesn't exist, click "+ Add Custom Option" at the bottom of the dropdown, enter it, and press Enter to use it directly and automatically save it to the bank.
+* **Multi-Instance Support**: When the same variable appears multiple times in the template (e.g., `{{color}}`), each instance can independently select different values.
+### Step 5: Manage Template Images (Optional)
+* **View Preview Image**: If the template is associated with a preview image, it will display in the top-right corner of the template title and serve as a blurred background decoration for the top area.
+* **Upload Custom Image**:
+1. Hover the mouse over the preview image to reveal three operation buttons.
+2. Click the middle "Upload Image" button (image icon).
+3. Select a local image file (supports jpg, png, gif, webp, etc.).
+4. The image will automatically upload and replace the current preview image.
+* **View Full Image**: Click the left "View Full Image" button (zoom icon) to browse image details in full-screen mode.
+* **Reset Image**: Click the right "Reset to Default Image" button (undo icon) to restore the template's default preview image.
+### Step 6: Export and Share
+* **Copy Result**: Click the "Copy Result" button in the top-right corner to copy the final generated clean Prompt text with one click, ready to paste directly into AI drawing tools.
+* **Save Long Image**: Click the "Save Long Image" button to export the current filled Prompt template (including the preview image) as a high-definition image (PNG format), convenient for sharing, archiving, or reference.
+## 💡 Usage Tips
+1. **Bulk Create Banks**: When adding options, you can input multi-line text at once, and the system will automatically split it into multiple options by line.
+2. **Template Duplicate Function**: When testing different Prompt effects, use the "Create Duplicate" function to retain the original template for easy comparison.
+3. **Color Coding System**: Assign different colors to different types of variables to make complex template structures clearer and easier to read.
+4. **Multi-Instance Independent Selection**: When the same variable appears multiple times in the template, the system automatically assigns independent indexes (e.g., `color-0`, `color-1`), allowing different values at each position.
+5. **Custom Preview Images**: Upload representative reference images for templates to quickly identify their purposes and make exported long images more visually appealing.
+6. **Image Size Recommendations**: Recommended preview image size is around 300x300px square or portrait orientation for optimal display in the interface.
+7. **Local Data Safety**: All data (including uploaded images) is stored locally in the browser. Regularly export backups to avoid data loss.
+## 📝 Changelog
 ### Version 0.3.1 (2025-12-09)
-*   **启动优化**：
-    *   重构 `start.bat`，兼容 PowerShell 和 CMD 环境
-    *   增加自动依赖检查与修复功能，解决缺失 `vite` 等核心依赖的问题
-    *   优化浏览器自动打开逻辑，确保服务启动即自动打开
-*   **工程化改进**：
-    *   `package.json` 新增 `dev:open` 脚本，统一启动行为
-    *   修复 `start.bat` 的中文编码问题
-    *   清理 `node_modules` 的 Git 追踪配置，规范化项目结构
-*   **Bug 修复**：
-    *   解决 `src/data/templates.js` 中的 Git 合并冲突
-
+* **Startup Optimization**:
+* Refactored `start.bat` for compatibility with PowerShell and CMD environments
+* Added automatic dependency checks and fixes to resolve missing core dependencies like `vite`
+* Optimized browser auto-open logic to ensure it opens automatically upon service startup
+* **Engineering Improvements**:
+* Added `dev:open` script to `package.json` for unified startup behavior
+* Fixed Chinese encoding issues in `start.bat`
+* Cleaned up Git tracking for `node_modules`, standardizing project structure
+* **Bug Fixes**:
+* Resolved Git merge conflicts in `src/data/templates.js`
 ### Version 0.3.0 (2025-12-08)
-*   **UI 优化**：
-    *   优化"新建模版"按钮样式，采用统一的 Premium Button 设计语言，提升整体视觉一致性
-    *   按钮增加悬停渐变效果和阴影动画，交互体验更加流畅
-*   **功能说明**：
-    *   完善图像上传和展示功能的文档说明
-    *   支持自定义上传模版预览图
-    *   图片悬停操作：查看大图、上传新图、重置默认图
-    *   Lightbox 全屏图片预览模式
-*   **文档完善**：
-    *   重构使用指南，采用分步骤的结构化说明
-    *   新增"使用技巧"章节，提供最佳实践建议（包括图片使用建议）
-    *   新增更新日志，记录版本迭代历史
-    *   补充图像管理功能的详细说明
-
+* **UI Optimization**:
+* Optimized "New Template" button style with unified Premium Button design language for better visual consistency
+* Added hover gradient effects and shadow animations to buttons for smoother interaction
+* **Feature Documentation**:
+* Enhanced documentation for image upload and display features
+* Supported custom template preview image uploads
+* Image hover operations: view full image, upload new image, reset to default
+* Lightbox full-screen image preview mode
+* **Documentation Improvements**:
+* Restructured usage guide with step-by-step structured explanations
+* Added "Usage Tips" section with best practices (including image usage tips)
+* Added changelog to record version history
+* Supplemented detailed explanations for image management features
 ### Version 0.2.0
-*   增加模版导出长图功能
-*   支持自定义分类颜色配置
-*   优化响应式布局体验
-*   修复多个已知问题
-
+* Added template long image export functionality
+* Supported custom category color configuration
+* Optimized responsive layout experience
+* Fixed multiple known issues
 ### Version 0.1.0
-*   初始版本发布
-*   基础的模版管理功能
-*   词库创建与编辑功能
-*   变量填空交互系统
-
-## 🤝 贡献
-
-欢迎提交 Issue 或 Pull Request 来改进这个项目！
-
-如果您有任何建议或发现了 Bug，请随时在 [GitHub Issues](https://github.com/TanShilongMario/PromptFill/issues) 中告诉我们。
-
-## 📄 许可证
-
-本项目采用 [MIT 许可证](LICENSE)。
+* Initial version release
+* Basic template management functionality
+* Bank creation and editing functionality
+* Variable fill-in interaction system
+## 🤝 Contributing
+We welcome Issue submissions or Pull Requests to improve this project!
+If you have any suggestions or find a bug, feel free to let us know in [GitHub Issues](https://github.com/TanShilongMario/PromptFill/issues).
+## 📄 License
 
 ---
 
